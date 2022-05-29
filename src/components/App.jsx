@@ -35,8 +35,8 @@ const App = () => {
 	return (
 		<>
 			<h1>Hola mundo</h1> <p>Desde ReactJS</p>
-			{personajes.map((p,i) => (
-				<Card key={i} character={p} />
+			{personajes.map((p, i) => (
+				<Card key={i} pokemon={p} />
 			))}
 		</>
 	);
