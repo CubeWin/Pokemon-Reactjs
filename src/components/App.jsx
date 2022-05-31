@@ -1,45 +1,71 @@
-import { useEffect, useState } from 'react';
-
-import Card from './Card';
+import { useState, useEffect } from 'react';
+import Card2 from './Card';
 
 const App = () => {
-	const [personajes, setPersonajes] = useState([]);
+	const [pokemons, setPokemons] = useState([]);
+	// const [pokemon, setPokemon] = useState({});
 	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
-		getCharacter();
+		getPokemons();
 	}, []);
 
-	const getCharacter = async () => {
+	const getPokemons = async () => {
 		setLoading(true);
 		try {
 			const res = await fetch('https://pokeapi.co/api/v2/pokemon');
-			if (!res.ok) {
-				throw new Error('La respuesta no tenia ok');
-			}
+			if (!res.ok) throw new Error('Error en la respuesta');
 			const data = await res.json();
-			console.log([...data.results]);
-			setPersonajes([...data.results]);
+			const dataPokemons = data.results.map(async pok => {
+				const res = await getPokemon(pok.url);
+				const image = res.sprites.other.dream_world.front_default;
+				const name = pok.name;
+				return { name, image, ...res };
+			});
+			const result = await Promise.all(dataPokemons);
+			console.log(result);
+
+			setPokemons(result);
 		} catch (err) {
-			console.log(`error => ${err}`);
+			console.log(`=> error : ${err}`);
 			return [{ error: err }];
 		} finally {
 			setLoading(false);
 		}
 	};
 
+	const getPokemon = async url => {
+		try {
+			const res = await fetch(url);
+			if (!res.ok) throw new Error('Error en la respuesta');
+			const data = await res.json();
+			return data;
+		} catch (err) {
+			console.log(`=> error : ${err}`);
+			return [{ error: err }];
+		}
+	};
+
 	if (loading) {
-		return <span>...Loading</span>;
+		return <h1>Tacargando perro....</h1>;
 	}
 
 	return (
-		<>
-			<h1>Hola mundo</h1> <p>Desde ReactJS</p>
-			{personajes.map((p, i) => (
-				<Card key={i} pokemon={p} />
-			))}
-		</>
+		<div className='col-span-1 lg:col-span-2 xl:col-span-3 pb-5'>
+			<div className='flex flex-wrap justify-center'>
+				{pokemons.map((pke, i) => (
+					<Card2
+						key={i}
+						name={pke.name}
+						image={pke.image}
+						height={pke.height}
+						weight={pke.weight}
+						types={pke.types}
+						id={pke.id}
+					/>
+				))}
+			</div>
+		</div>
 	);
 };
-
 export default App;

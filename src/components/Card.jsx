@@ -1,37 +1,52 @@
-import { useState, useEffect } from 'react';
-const Card = props => {
-	console.log(props);
-	const { name, url } = props.pokemon;
-	const [character, setCharacter] = useState({});
-	const [carga, setCarga] = useState(false);
-
-	useEffect(() => {
-		getPokemon();
-	}, []);
-
-	const getPokemon = async () => {
-		try {
-			const res = await fetch(url);
-			if (!res.ok) throw new Error('No se retorno res.ook');
-			const data = await res.json();
-			console.log('Get pokemon Only', data.name);
-			setCarga(true);
-			setCharacter(data);
-		} catch (err) {
-			console.log(`error => ${err}`);
-			return [{ error: err }];
-		}
-	};
-
+import './card.css';
+const Card2 = ({ name, image, height, weight, types = [], id }) => {
 	return (
-		<div style={{ border: '1px solid #333', margin: '25px auto' }}>
-			<h1>{name}</h1>
-			<p>{url}</p>
-			<img
-				style={{ width: '150px', height: 'auto' }}
-				src={carga ? character.sprites.other.dream_world.front_default : ''}
-			/>
-		</div>
+		<>
+			<a className='w-72 relative rounded-3xl bg-gray-100 px-5 py-3 my-5 mx-3 flex flex-col justify-between text-center cursor-pointer hover:shadow-md hover:shadow-rose-800 transition-shadow'>
+				<div className='w-full h-auto flex items-center justify-center'>
+					<img className='pokeCard-image' src={image} alt='Pokemon' />
+				</div>
+				<div>
+					<small className='text-gray-400 font-bold'>N° {id}</small>
+					<h1 className='font-bold'>{name}</h1>
+					<div className='flex justify-center mb-1'>
+						<div className='flex mx-2'>
+							<div
+								className='py-1 rounded px-3 uppercase font-bold text-white bg-blue-400'
+								style={{ lineHeight: '15px', fontSize: '16px' }}
+							>
+								{types.map(a => a.type.name)}
+							</div>
+						</div>
+					</div>
+					<div className='flex justify-center'>
+						<div className='mx-2'>
+							<div
+								className='small'
+								style={{ lineHeight: '15px', fontSize: '16px' }}
+							>
+								Peso
+							</div>
+							<div className='font-bold'>{parseInt(weight / 2.205)} kg</div>
+						</div>
+						<div className='mx-2'>
+							<div
+								className='small'
+								style={{
+									lineHeight: '15px',
+									fontSize: '16px',
+									color: '#002244',
+								}}
+							>
+								Tamaño
+							</div>
+							<div className='font-bold'>{height / 10} m</div>
+						</div>
+					</div>
+				</div>
+			</a>
+		</>
 	);
 };
-export default Card;
+
+export default Card2;
