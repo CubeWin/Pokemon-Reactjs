@@ -1,8 +1,14 @@
+import { useContext } from 'react';
+import CharacterContext from '../context/Character/CharacterContext';
 import './card.css';
-const Card2 = ({ name, image, height, weight, types = [], id }) => {
+const Card = ({ name, image, height, weight, types = [], id }) => {
+	const { getProfile } = useContext(CharacterContext);
 	return (
 		<>
-			<a className='w-72 relative rounded-3xl bg-gray-100 px-5 py-3 my-5 mx-3 flex flex-col justify-between text-center cursor-pointer hover:shadow-md hover:shadow-rose-800 transition-shadow'>
+			<a
+				onClick={() => getProfile(id)}
+				className='w-72 relative rounded-3xl bg-gray-100 px-5 py-3 my-5 mx-3 flex flex-col justify-between text-center cursor-pointer hover:shadow-md hover:shadow-rose-800 transition-shadow'
+			>
 				<div className='w-full h-auto flex items-center justify-center'>
 					<img className='pokeCard-image' src={image} alt='Pokemon' />
 				</div>
@@ -49,4 +55,4 @@ const Card2 = ({ name, image, height, weight, types = [], id }) => {
 	);
 };
 
-export default Card2;
+export default Card;
