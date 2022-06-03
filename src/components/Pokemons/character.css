@@ -1,0 +1,9 @@
+.selected-pokemon {
+	height: calc(100vh - 120px);
+}
+
+@media (min-width: 1536px) {
+	.selected-pokemon {
+		height: 680px !important;
+	}
+}

@@ -28,25 +28,11 @@ const Card = ({ name, image, height, weight, types = [], id }) => {
 					</div>
 					<div className='flex justify-center'>
 						<div className='mx-2'>
-							<div
-								className='small'
-								style={{ lineHeight: '15px', fontSize: '16px' }}
-							>
-								Peso
-							</div>
+							<div className='text-xs uppercase text-slate-800'>Weight</div>
 							<div className='font-bold'>{parseInt(weight / 2.205)} kg</div>
 						</div>
 						<div className='mx-2'>
-							<div
-								className='small'
-								style={{
-									lineHeight: '15px',
-									fontSize: '16px',
-									color: '#002244',
-								}}
-							>
-								Tamaño
-							</div>
+							<div className='text-xs uppercase text-slate-800'>Height</div>
 							<div className='font-bold'>{height / 10} m</div>
 						</div>
 					</div>
