@@ -13,9 +13,11 @@ const CharacterState = ({ children }) => {
 
   const [state, dispatch] = useReducer(CharacterReducer, initState);
 
-  const getCharacters = async () => {
+  const getCharacters = async (init = 0) => {
     try {
-      const res = await fetch('https://pokeapi.co/api/v2/pokemon');
+      const res = await fetch(
+        `https://pokeapi.co/api/v2/pokemon/?limit=10&offset=${init}`
+      );
       const { results } = await res.json();
       const data = results.map(async p => {
         const res = await fetch(p.url);

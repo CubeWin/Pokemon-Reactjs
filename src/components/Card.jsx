@@ -7,23 +7,24 @@ const Card = ({ name, image, height, weight, types = [], id }) => {
 		<>
 			<a
 				onClick={() => getProfile(id)}
-				className='w-72 relative rounded-3xl bg-gray-100 px-5 py-3 my-5 mx-3 flex flex-col justify-between text-center cursor-pointer hover:shadow-md hover:shadow-rose-800 transition-shadow'
+				className='w-72 relative rounded-3xl bg-gray-100 px-5 py-3 my-5 mx-3 flex flex-col justify-between text-center cursor-pointer hover:shadow-md hover:shadow-blue-300 transition-shadow'
 			>
-				<div className='w-full h-auto flex items-center justify-center'>
+				<div className='w-full h-auto flex items-center justify-center mb-3'>
 					<img className='pokeCard-image' src={image} alt='Pokemon' />
 				</div>
 				<div>
 					<small className='text-gray-400 font-bold'>N° {id}</small>
-					<h1 className='font-bold'>{name}</h1>
-					<div className='flex justify-center mb-1'>
-						<div className='flex mx-2'>
+					<h1 className='font-bold capitalize mb-3'>{name}</h1>
+					<div className='flex justify-center mb-3'>
+						{types.map((a, i) => (
 							<div
-								className='py-1 rounded px-3 uppercase font-bold text-white bg-blue-400'
+								key={i}
+								className='py-1 mx-1 rounded px-3 uppercase font-bold text-white bg-blue-400'
 								style={{ lineHeight: '15px', fontSize: '16px' }}
 							>
-								{types.map(a => a.type.name)}
+								{a.type.name}
 							</div>
-						</div>
+						))}
 					</div>
 					<div className='flex justify-center'>
 						<div className='mx-2'>
