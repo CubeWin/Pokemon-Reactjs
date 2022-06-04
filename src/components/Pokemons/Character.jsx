@@ -9,28 +9,38 @@ const Character = () => {
 
 	useEffect(() => {
 		getProfile(1);
+		console.log();
 	}, []);
 
-	const handleToggle = () => {
+	// const handleToggle = () => {
+	// 	setIsActive(!isActive);
+	// };
+
+	const handleShowCharacter = () => {
+		const cardCharacter = document.getElementById('characterSelected');
 		setIsActive(!isActive);
+		if (isActive) {
+			cardCharacter.style.bottom = '-85vh';
+		} else {
+			cardCharacter.style.bottom = '0';
+		}
 	};
 
 	return (
 		<div
-			className={`w-full fixed lg:col-span-1 lg:static ${
-				isActive ? '' : '-bottom-[85%]'
-			}`}
-			style={{ transition: 'all 0.5s ease-in-out' }}
+			id='characterSelected'
+			className='w-full fixed lg:col-span-1 lg:static transition-all duration-700 ease-in-out'
+			style={{ bottom: '-85vh' }}
 		>
 			<div className='absolute -top-5  w-full text-right lg:hidden'>
 				<button
-					onClick={handleToggle}
+					onClick={handleShowCharacter}
 					className='bg-red-400 px-3 py-0 mr-8 rounded-t-full h-10 w-10 text-white text-center'
 				>
 					{isActive ? 'x' : '^'}
 				</button>
 			</div>
-			<div className='selected-pokemon rounded-3xl bg-gray-100 px-5 py-3 my-5 mx-3 sticky top-5 font-sans flex flex-col justify-around text-center'>
+			<div className='selected-pokemon rounded-3xl bg-gray-100 px-5 py-3 my-5 mx-3 sticky top-5 font-sans flex flex-col justify-around text-center  shadow-lg shadow-gray-700 lg:shadow-none'>
 				{selectCharacter ? (
 					<>
 						<img
